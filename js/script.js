@@ -12,3 +12,13 @@ const toggleNav = () => {
     })
     document.querySelector(".nav-buttons").classList.toggle("active");
 }
+
+// Card disabled
+const numbers = document.querySelectorAll("#about-card .card-container .card .number");
+numbers.forEach(item => {
+    if(item.innerHTML == "0") {
+        item.parentNode.classList.add("disabled");
+    } else {
+        item.parentNode.classList.remove("disabled");
+    }
+})
