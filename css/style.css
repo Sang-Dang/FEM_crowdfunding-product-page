@@ -3,13 +3,18 @@
     --dark-cyan: hsl(176, 72%, 28%);
     --black: hsl(0, 0%, 0%);
     --dark-gray: hsl(0, 0%, 48%);
+    --top: 100;
+    --center: 1;
+    --default: -1;
     font-size: 16px;
     font-family: Commissioner, sans-serif;
 }
 
 body {
     width: 100%;
+    height:max-content;
     background-color: #fafafa;
+    position: relative;
 }
 
 /* HEADER */
@@ -22,7 +27,7 @@ header {
     aspect-ratio: 9/2;
     padding: 30px 7.5% 0;
     position: relative;
-    z-index: 10;
+    z-index: 2;
 }
 
 header::after {
@@ -33,7 +38,7 @@ header::after {
     top: 0;
     left: 0;
     height: 200px;
-    z-index: -1;
+    z-index: var(--default);
 }
 
 header>nav {
@@ -41,8 +46,12 @@ header>nav {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    z-index: 1;
     margin-bottom: 20%;
+}
+
+header>nav>.logo {
+    z-index: var(--top);
+    position: relative;
 }
 
 header>nav>.nav-buttons {
@@ -51,6 +60,7 @@ header>nav>.nav-buttons {
     flex-direction: row;
     position: relative;
     gap: 2rem;
+    z-index: var(--top);
 }
 
 header>nav>.nav-buttons .nav-item {
@@ -83,12 +93,12 @@ header>nav>.nav-buttons .nav-item {
         transform: translateX(-50%);
         width: 85vw;
         border-radius: .7rem;
-        height: 40%;
+        height: 45%;
         padding: 0;
         gap: 0;
         opacity: 0;
         transition: opacity 0.2s linear;
-        z-index: 100000;
+        z-index: var(--top);
     }
 
     header>nav>.nav-buttons li {
@@ -121,7 +131,7 @@ header>nav>.nav-buttons .nav-item {
 
     .hamburger {
         display: none;
-        z-index: 1000;
+        z-index: var(--top);
     }
 
     .hamburger.active {
@@ -130,25 +140,32 @@ header>nav>.nav-buttons .nav-item {
 
     .nav-buttons.active {
         opacity: 1;
-        z-index: 1000;
+        z-index: var(--top);
     }
 
-    /* .nav-buttons.active::before {
+    header::after {
+        transition: all 0.2s ease;
+    }
+
+    header.blur::after {
         content: '';
-        position: absolute;
-        top: -100%;
-        left: -100%;
-        width: 300vw;
-        height: 300vh;
-        z-index: -1;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        z-index: var(--center);
         background-color: rgba(0, 0, 0, .4);
-    } */
+    }    
 }
 
 /* SECTIONS */
 
 main {
     background-color: #fafafa;
+    position: relative;
+    margin-bottom: 20px;
+    height: max-content;
 }
 
 section {
@@ -164,7 +181,7 @@ section {
 /* TITLE-CARD */
 
 #title-card {
-    z-index: 100;
+    z-index: var(--default);
     text-align: center;
     position: relative;
 }
@@ -296,20 +313,24 @@ section {
     #figure-card .item-container {
         text-align: left;
         flex-direction: row;
-        justify-content: space-evenly;
-        gap: 7vw;
+        justify-content: flex-start;
+        gap: 3vw;
+        position: relative;
+    }
+
+    #figure-card .item {
+        width: calc(100% / 3);
+        position: relative;
     }
 
     #figure-card .item::after {
-        /* border-right: 1px solid var(--dark-gray);
+        border-right: 1px solid var(--dark-gray);
         border-bottom: none;
         width: 5px;
         height: 65px;
         position: absolute;
-        left: 9vw;
-        bottom: 50%;
-        transform: translate(0,55%); */
-        border: none;
+        bottom: 0;
+        left: clamp(80%, 100%, 100%);
     }
 }
 
@@ -354,7 +375,7 @@ section {
 
 #about-card .card-container .card .card-body {
     color: var(--dark-gray);
-    margin: 20px 0;
+    padding: 20px 0;
 }
 
 #about-card .card-container .card .number {
@@ -392,4 +413,30 @@ section {
 
 #about-card .card-container .card.disabled .card-button {
     background-color: var(--dark-gray);
+}
+
+@media (min-width: 500px) {
+    #about-card .card-container .card .card-title {
+        float: left;
+        margin-bottom: 20px 0;
+    }
+
+    #about-card .card-container .card .card-subtitle {
+        float: right;
+    }
+
+    #about-card .card-container .card .card-body {
+        clear: both;
+    }
+
+    #about-card .card-container .card .card-functions {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #about-card .card-container .card .card-button {
+        width: 30%;
+    }
 }

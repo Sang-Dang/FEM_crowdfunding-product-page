@@ -11,6 +11,7 @@ const toggleNav = () => {
         item.classList.toggle("active");
     })
     document.querySelector(".nav-buttons").classList.toggle("active");
+    toggleBlurScreen();
 }
 
 // Card disabled
@@ -22,3 +23,8 @@ numbers.forEach(item => {
         item.parentNode.classList.remove("disabled");
     }
 })
+
+// blur screen
+function toggleBlurScreen() {
+    document.querySelector("header").classList.toggle("blur");
+}
