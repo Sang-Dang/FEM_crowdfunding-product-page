@@ -1,6 +1,6 @@
 :root {
     --moderate-cyan: hsl(176, 50%, 47%);
-    --dark-cyan: hsl(176, 72%, 28%);
+    --dark-cyan: #147b74;
     --black: hsl(0, 0%, 0%);
     --dark-gray: hsl(0, 0%, 48%);
     --top: 100;
@@ -12,7 +12,7 @@
 
 body {
     width: 100%;
-    height:max-content;
+    height: max-content;
     background-color: #fafafa;
     position: relative;
 }
@@ -156,7 +156,7 @@ header>nav>.nav-buttons .nav-item {
         width: 100vw;
         z-index: var(--center);
         background-color: rgba(0, 0, 0, .4);
-    }    
+    }
 }
 
 /* SECTIONS */
@@ -233,7 +233,7 @@ section {
 
 @media (min-width: 500px) {
     #title-card>.functions {
-        justify-content:space-between;
+        justify-content: space-between;
     }
 
     #title-card>.functions>button:first-child {
@@ -242,6 +242,7 @@ section {
 
     #title-card>.functions>button:last-child span {
         display: block;
+        user-select: none;
     }
 
     #title-card>.functions>button:last-child {
@@ -257,7 +258,8 @@ section {
 
 /* FIGURE-CARD */
 
-#figure-card, #figure-card .item-container {
+#figure-card,
+#figure-card .item-container {
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -408,11 +410,12 @@ section {
 
 /* FOR OUT OF STOCK */
 #about-card .card-container .card.disabled * {
-    opacity: .5;
+    opacity: .4;
 }
 
 #about-card .card-container .card.disabled .card-button {
     background-color: var(--dark-gray);
+    cursor: default;
 }
 
 @media (min-width: 500px) {
@@ -439,4 +442,51 @@ section {
     #about-card .card-container .card .card-button {
         width: 30%;
     }
+}
+
+button {
+    cursor: pointer;
+    transition: all 0.1s linear;
+}
+
+button:hover {
+    background-color: var(--dark-cyan) !important;
+}
+
+button:active {
+    transform: scale(90%);
+}
+
+#bookmark {
+    opacity: 1;
+    transition: all .2s ease;
+}
+
+#bookmark:hover {
+    opacity: .6;
+    background-color: #f4f4f4 !important;
+}
+
+#bookmark.toggle {
+    gap: 1vw !important;
+}
+
+#bookmark.toggle svg g circle {
+    fill: var(--dark-cyan);
+}
+
+#bookmark.toggle svg g path {
+    fill: white;
+}
+
+#bookmark.toggle span {
+    color: var(--dark-cyan);
+}
+
+#bookmark.toggle span::after {
+    content: 'ed';
+}
+
+#bookmark.toggle:hover {
+    opacity: 1;
 }

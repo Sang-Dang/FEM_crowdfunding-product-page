@@ -15,12 +15,12 @@ const toggleNav = () => {
 }
 
 // Card disabled
-const numbers = document.querySelectorAll("#about-card .card-container .card .number");
+const numbers = document.querySelectorAll("#about-card .card-container .card .card-functions .number");
 numbers.forEach(item => {
     if(item.innerHTML == "0") {
-        item.parentNode.classList.add("disabled");
+        item.parentNode.parentNode.classList.add("disabled");
     } else {
-        item.parentNode.classList.remove("disabled");
+        item.parentNode.parentNode.classList.remove("disabled");
     }
 })
 
@@ -28,3 +28,9 @@ numbers.forEach(item => {
 function toggleBlurScreen() {
     document.querySelector("header").classList.toggle("blur");
 }
+
+// bookmark button functionality
+const bookmarkButton = document.querySelector("#bookmark");
+bookmarkButton.addEventListener('click', () => {
+    bookmarkButton.classList.toggle("toggle");
+})
