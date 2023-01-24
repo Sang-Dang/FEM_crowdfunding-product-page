@@ -17,6 +17,10 @@ body {
     position: relative;
 }
 
+.template {
+    display: none;
+}
+
 /* HEADER */
 
 header {
@@ -76,7 +80,7 @@ header>nav>.nav-buttons .nav-item {
 }
 
 /* for mobile cuz its shorter */
-@media (max-width: 500px) {
+@media (max-width: 650px) {
     header {
         background-image: url(../images/image-hero-mobile.jpg);
     }
@@ -147,16 +151,17 @@ header>nav>.nav-buttons .nav-item {
         transition: all 0.2s ease;
     }
 
-    header.blur::after {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100vh;
-        width: 100vw;
-        z-index: var(--center);
-        background-color: rgba(0, 0, 0, .4);
-    }
+}
+
+header.blur::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: var(--center);
+    background-color: rgba(0, 0, 0, .4);
 }
 
 /* SECTIONS */
@@ -231,7 +236,7 @@ section {
     display: none;
 }
 
-@media (min-width: 500px) {
+@media (min-width: 650px) {
     #title-card>.functions {
         justify-content: space-between;
     }
@@ -311,7 +316,7 @@ section {
     border-radius: 1rem;
 }
 
-@media (min-width: 500px) {
+@media (min-width: 650px) {
     #figure-card .item-container {
         text-align: left;
         flex-direction: row;
@@ -409,7 +414,7 @@ section {
 }
 
 /* FOR OUT OF STOCK */
-#about-card .card-container .card.disabled * {
+#about-card .card-container .card.disabled *, #project-select .card.disabled {
     opacity: .4;
 }
 
@@ -418,7 +423,7 @@ section {
     cursor: default;
 }
 
-@media (min-width: 500px) {
+@media (min-width: 650px) {
     #about-card .card-container .card .card-title {
         float: left;
         margin-bottom: 20px 0;
@@ -443,6 +448,8 @@ section {
         width: 30%;
     }
 }
+
+/* BUTTONS */
 
 button {
     cursor: pointer;
@@ -489,4 +496,229 @@ button:active {
 
 #bookmark.toggle:hover {
     opacity: 1;
+}
+
+/* FLOAT */
+
+#float>section {
+    position: absolute;
+    top: 32%;
+    left: -100%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    transition: left 0.2s linear;
+    z-index: var(--top);
+}
+
+#float .close {
+    position: absolute;
+    right: 25px;
+    top: 45px;
+    content: '';
+    width: 17px;
+    height: 17px;
+    background: transparent url(../images/icon-close-modal.svg) 0 0 no-repeat;
+    background-size: contain;
+    font-size: 2rem;
+    transition: all 9.2s linear;
+}
+
+#float .close:active {
+    transform: scale(90%);
+}
+
+#float>section.active {
+    left: 50%;
+}
+
+#project-select {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#project-select h1 {
+    margin-bottom: 10px;
+}
+
+#project-select p {
+    color: var(--dark-gray);
+}
+
+#project-select .card {
+    border: 1px solid var(--dark-gray);
+    border-radius: .6rem;
+    padding: 25px;
+    position: relative;
+}
+
+#project-select .card.active {
+    border: 3px solid var(--moderate-cyan);
+}
+
+#default-pledge {
+    display: flex;
+    flex-direction: row;
+}
+
+#project-select .card .title {
+    display: grid;
+    grid-template-columns: min-content auto;
+    grid-template-rows: min-content auto;
+    grid-template-areas: "select title" "select subtitle";
+    column-gap: 1rem;
+    width: auto;
+    margin-bottom: 1.5rem;
+}
+
+#project-select .card .title .select {
+    grid-area: select;
+    margin: auto 0;
+    width: 25px;
+    height: 25px;
+    border: 1px solid var(--dark-gray);
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+}
+
+#project-select .card .title .select.toggled::after {
+    position: absolute;
+    top: 1.5px;
+    left: 1px;
+    width: 15px;
+    height: 15px;
+    background-color: var(--moderate-cyan);
+    margin: 3px;
+    content: '';
+    border-radius: 50%;
+    cursor: default;
+}
+
+#project-select .card .title .card-title {
+    grid-area: title;
+    font-size: 1rem;
+}
+
+#project-select .card .title .card-subtitle {
+    grid-area: subtitle;
+    color: var(--moderate-cyan);
+    font-weight: 400;
+}
+
+#project-select .card .card-functions {
+    margin-top: 20px;
+}
+
+#project-select .card .number {
+    color: black;
+    font-weight: 900;
+    font-size: 1.5rem;
+    position: relative;
+}
+
+#project-select .card .number::after {
+    position: absolute;
+    content: 'left';
+    font-size: 1rem;
+    font-weight: 400;
+    top: 50%;
+    transform: translate(30%, -50%);
+    color: var(--dark-gray);
+}
+
+#project-select .card .card-button {
+    display: none;
+}
+
+#project-select .card .pledge-amount {
+    display: none;
+}
+
+#project-select .card.active .pledge-amount {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    border-top: 1px solid var(--dark-gray);
+    margin-top: 20px;
+}
+
+#project-select .card.active .pledge-amount p {
+    margin: 20px 0;
+}
+
+#project-select .card.active .pledge-amount form {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+#project-select .card.active .pledge-amount form input {
+    width: 50%;
+    padding: 10px 0;
+    border-radius: 5rem;
+    text-align: center;
+}
+
+#project-select .card.active .pledge-amount form .money-input {
+    border: 1px solid var(--dark-gray);
+    outline: none;
+    font-weight: 900;
+}
+
+#project-select .card.active .pledge-amount form .money-input:focus {
+    outline: 2px solid var(--moderate-cyan);
+    border: none;
+}
+
+#project-select .card.active .pledge-amount form .submit {
+    background-color: var(--moderate-cyan);
+    color: white;
+    font-weight: 900;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#project-select .card.active .pledge-amount form .submit:hover {
+    background-color: var(--dark-cyan);
+}
+
+#project-select .card.active .pledge-amount form .submit:active {
+    transform: scale(90%);
+}
+
+@media (min-width: 650px) {
+    #project-select .card.active .pledge-amount {
+        flex-direction: row;
+        justify-content: space-between;
+        padding-top: 20px;
+    }
+
+    #project-select .card .title {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #project-select .card .card-body {
+        margin-left: 40px;
+    }
+
+    #project-select .card .number {
+        position: absolute;
+        top: 15px;
+        right: 60px;
+    }
+
+    #project-select > p {
+        margin-bottom: 20px;
+    }
+}
+
+#finished {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
 }
