@@ -22,6 +22,10 @@ public class RewardsService {
             return RewardsDAO.getAllRewards();
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(RewardsService.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
+    }
+    public static void main(String[] args) {
+        getRewards().forEach(item -> System.out.println(item));
     }
 }

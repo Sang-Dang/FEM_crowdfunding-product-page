@@ -14,6 +14,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class DonationService {
     public static boolean validateDonation(HttpServletRequest request, HttpServletResponse response) {
-        
+        return true;
     }
 }
