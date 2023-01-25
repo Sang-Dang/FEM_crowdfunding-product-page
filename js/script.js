@@ -1,20 +1,34 @@
 const navButtons = document.querySelectorAll(".hamburger");
 
+function scrollToTop() {
+    setTimeout(function () {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
+    }, 200);
+}
+
 navButtons.forEach(item => {
     item.addEventListener('click', () => {
         toggleNav();
     })
 })
 
+var flag = true;
 const toggleNav = () => {
-    navButtons.forEach(item => {
-        item.classList.toggle("active");
-    })
-    document.querySelector(".nav-buttons").classList.toggle("active");
-    if (document.querySelector(".nav-buttons").classList.contains("active"))
-        toggleBlurScreen(true);
-    else
-        toggleBlurScreen(false);
+    if(flag) {
+        navButtons.forEach(item => {
+            item.classList.toggle("active");
+        })
+        document.querySelector(".nav-buttons").classList.toggle("active");
+        if (document.querySelector(".nav-buttons").classList.contains("active")) {
+            toggleBlurScreen(true);
+        } else {
+            toggleBlurScreen(false);
+        }
+    }
 }
 
 // Card disabled
@@ -36,6 +50,10 @@ const checkLeft = () => {
             item.parentNode.parentNode.classList.remove("disabled");
         }
     })
+}
+
+const isBlurScreen = () => {
+    return document.querySelector("header").classList.contains("blur");
 }
 
 // blur screen
@@ -83,9 +101,15 @@ copyCards();
 // selectbox functionality
 const selectBoxes = document.querySelectorAll("#project-select .card .title .select");
 const floatCards = document.querySelectorAll("#project-select .card");
+const titleSelectBoxes = document.querySelectorAll("#project-select .card .title .card-title");
 selectBoxes.forEach(item => {
     item.addEventListener('click', () => {
         toggleSelect(item);
+    })
+})
+titleSelectBoxes.forEach(item => {
+    item.addEventListener('click', () => {
+        toggleSelect(item.previousElementSibling);
     })
 })
 const toggleSelect = (item) => {
@@ -103,20 +127,16 @@ const toggleCard = (item) => {
 // open main float
 const mainFloat = document.querySelector("#project-select");
 const openMainFloat = (id) => {
-    setTimeout(function() {
-        window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: 'smooth'
-        });
-    }, 200);
+    flag = false;
+    scrollToTop();
     mainFloat.classList.add("active");
     toggleBlurScreen(true);
-    if(id != -1) {
+    if (id != -1) {
         toggleSelect(selectBoxes[id]);
     }
 }
 const closeMainFloat = () => {
+    flag = true;
     mainFloat.classList.remove("active");
     toggleBlurScreen(false);
 }
@@ -147,4 +167,25 @@ moneyInputs.forEach(item => {
             item.value = item.value.slice(0, -1);
         }
     })
+})
+
+// finished functions
+const finishSection = document.querySelector("#finished");
+const closeFinish = document.querySelector("#finished button");
+
+const openFinish = document.querySelectorAll(".pledge-amount form .submit");
+openFinish.forEach(item => {
+    item.addEventListener('click', () => {
+        scrollToTop();
+        finishSection.classList.add("active");
+        closeMainFloat();
+        flag = false;
+        toggleBlurScreen(true);
+    })
+})
+
+closeFinish.addEventListener('click', () => {
+    flag = true;
+    finishSection.classList.remove("active");
+    toggleBlurScreen(false);
 })
