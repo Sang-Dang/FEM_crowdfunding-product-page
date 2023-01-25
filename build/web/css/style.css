@@ -234,7 +234,7 @@ section {
     background-color: var(--moderate-cyan);
     color: white;
     font-weight: 600;
-    font-size: .8rem;
+    font-size: 1rem;
 }
 
 #title-card>.functions>button:last-child {
@@ -545,7 +545,7 @@ button:active {
     background: transparent url(../images/icon-close-modal.svg) 0 0 no-repeat;
     background-size: contain;
     font-size: 2rem;
-    transition: all 9.2s linear;
+    transition: all .2s linear;
 }
 
 #float .close:active {
@@ -785,4 +785,9 @@ button:active {
     #finished {
         top: 20% !important;
     }
+}
+
+input.money-input.error {
+    border: 1px solid red !important;
+    outline: 1px solid red !important;
 }

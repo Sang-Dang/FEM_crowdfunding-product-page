@@ -10,6 +10,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Date;
+import model.DonationModel;
 
 /**
  *
@@ -17,18 +18,18 @@ import java.sql.Date;
  */
 public class SubmissionsDAO {
 
-    public static boolean submit(Date date, String rewardID, int donation) throws ClassNotFoundException, SQLException {
+    public static boolean submit(DonationModel donation) throws ClassNotFoundException, SQLException {
         CallableStatement statement;
-        try (Connection connection = MainConnection.getConnection()) {
-            if(connection == null) {
-                return false;
-            }   String sql = "INSERT INTO dbo.[Submissions] (submission_date, rewardID, donation)\n"
-                    + "VALUES (?, ?, ?);";
-            statement = connection.prepareCall(sql);
-            statement.setString(2, rewardID);
-            statement.setDate(1, date);
-            statement.setInt(3, donation);
+        Connection connection = MainConnection.getConnection();
+        if (connection == null) {
+            return false;
         }
-        return statement.execute();
+        String sql = "INSERT INTO dbo.[Submissions] (submission_date, rewardID, donation)\n"
+                + "VALUES (?, ?, ?);";
+        statement = connection.prepareCall(sql);
+        statement.setString(2, donation.getRewardID());
+        statement.setDate(1, donation.getDate());
+        statement.setInt(3, donation.getAmount());
+        return statement.executeUpdate() == 1;
     }
 }

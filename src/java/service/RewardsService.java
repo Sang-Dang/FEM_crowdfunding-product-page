@@ -25,7 +25,4 @@ public class RewardsService {
             return null;
         }
     }
-    public static void main(String[] args) {
-        getRewards().forEach(item -> System.out.println(item));
-    }
 }

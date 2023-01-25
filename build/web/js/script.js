@@ -10,6 +10,16 @@ function scrollToTop() {
     }, 200);
 }
 
+function scrollToAlmostTop() {
+    setTimeout(function () {
+        window.scrollTo({
+            top: 2,
+            left: 0,
+            behavior: 'smooth'
+        });
+    }, 200);
+}
+
 navButtons.forEach(item => {
     item.addEventListener('click', () => {
         toggleNav();
@@ -18,7 +28,7 @@ navButtons.forEach(item => {
 
 var flag = true;
 const toggleNav = () => {
-    if(flag) {
+    if (flag) {
         navButtons.forEach(item => {
             item.classList.toggle("active");
         })
@@ -76,23 +86,26 @@ const cards = document.querySelectorAll("main #about-card .card-container .card"
 const projectSelectCards = document.querySelector("#float>#project-select");
 const copyCards = () => {
     cards.forEach(item => {
-        let newCard = document.createElement("div");
-        newCard.classList.add("card");
-        newCard.innerHTML = item.innerHTML;
+        let newCard = document.createElement("div"); // create new card
+        newCard.classList.add("card"); // add class
+        newCard.innerHTML = item.innerHTML; // copy main body
 
-        let newCardTitle = newCard.firstElementChild;
-        let selectDiv = document.createElement("div");
-        selectDiv.classList.add("select");
+        // add a select button
+        let newCardTitle = newCard.firstElementChild; // get the title element
+        let selectDiv = document.createElement("div"); // create new element
+        selectDiv.classList.add("select"); // add select class
+        newCardTitle.prepend(selectDiv); // prepend: add as the first child
 
-        let pledgeDiv = document.querySelector("body>.template>.pledge-amount");
-        let selectDiv1 = document.createElement("div");
-        selectDiv1.classList.add("pledge-amount");
-        selectDiv1.innerHTML = pledgeDiv.innerHTML;
+        // add the pledge amount section
+        let pledgeDiv = document.querySelector("body>.template>.pledge-amount"); // get pledge template
+        pledgeDiv.children[1].children[0].setAttribute("data-min", item.getAttribute("data-min"));
+        pledgeDiv.children[1].children[3].setAttribute("value", item.getAttribute("data-rewardID"));
+        let selectDiv1 = document.createElement("div"); // create new element
+        selectDiv1.classList.add("pledge-amount"); // add pledge class
+        selectDiv1.innerHTML = pledgeDiv.innerHTML; // copy main body from template
+        newCard.appendChild(selectDiv1); // add to the end of the new card
 
-        newCardTitle.prepend(selectDiv);
-        newCard.appendChild(selectDiv1);
-
-        projectSelectCards.appendChild(newCard);
+        projectSelectCards.appendChild(newCard); //add new card to the end of the card container
     });
     checkLeft();
 }
@@ -159,7 +172,6 @@ moneyInputs.forEach(item => {
     item.addEventListener('input', () => {
         if (item.value.charAt(0) != '$') {
             item.value = "$" + item.value;
-            console.log(item.value);
         }
         let regex = /^\$\d+$/;
         if (!regex.test(item.value) || item.value.length > 6) {
@@ -172,16 +184,20 @@ moneyInputs.forEach(item => {
 const finishSection = document.querySelector("#finished");
 const closeFinish = document.querySelector("#finished button");
 
-const openFinish = document.querySelectorAll(".pledge-amount form .submit");
-openFinish.forEach(item => {
+const formSubmitButton = document.querySelectorAll(".pledge-amount form .submit");
+formSubmitButton.forEach(item => {
     item.addEventListener('click', () => {
-        scrollToTop();
-        finishSection.classList.add("active");
-        closeMainFloat();
-        flag = false;
-        toggleBlurScreen(true);
+        validateNumberInput(item.parentNode.children[0]);
     })
 })
+
+function openFinishScreen() {
+    scrollToAlmostTop();
+    finishSection.classList.add("active");
+    // closeMainFloat();
+    flag = false;
+    toggleBlurScreen(true);
+}
 
 closeFinish.addEventListener('click', () => {
     flag = true;
@@ -192,6 +208,31 @@ closeFinish.addEventListener('click', () => {
 // update data-id
 const mainBackprojectButtons = document.querySelectorAll("body>main>#about-card>.card-container .card>.card-functions>button");
 for (let i = 0; i < mainBackprojectButtons.length; i++) {
-    mainBackprojectButtons[i].setAttribute("data-id", i+1);    
+    mainBackprojectButtons[i].setAttribute("data-id", i + 1);
 }
-console.log(mainBackprojectButtons);
+
+// validate inputs
+const numberInput = document.querySelectorAll(".money-input");
+numberInput.forEach(item => {
+    item.addEventListener('blur', () => {
+        validateNumberInput(item);
+    })
+})
+
+const validateNumberInput = (item) => {
+    if (item.value == "") {
+        item.classList.add("error");
+        return false;
+    } else if (item.value.slice(1, item.value.length) < parseInt(item.getAttribute("data-min"))) {
+        item.classList.add("error");
+        return false;
+    } else {
+        item.classList.remove("error")
+        return true;
+    }
+}
+
+// submit card
+const validate = (obj) => {
+    return validateNumberInput(obj.children[0]);
+}

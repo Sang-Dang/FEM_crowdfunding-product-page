@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import service.DonationService;
 
 /**
  *
@@ -30,21 +31,22 @@ public class BackprojectServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        if("POST".equals(request.getMethod())) {
+        if ("POST".equals(request.getMethod())) {
             String method = request.getParameter("method");
-            if(method == null) {
+            if (method == null) {
                 method = "list";
             }
-            switch(method) {
-                case "submit":
-                {
-                    
+            switch (method) {
+                case "submit": {
+                    System.out.println(DonationService.validateDonation(request, response));
+                    request.setAttribute("finish", "true");
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
                 }
                 default:
-                    
+
             }
-        } else if("GET".equals(request.getMethod())) {
-            
+        } else if ("GET".equals(request.getMethod())) {
+
         }
     }
 

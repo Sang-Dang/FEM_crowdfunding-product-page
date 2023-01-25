@@ -7,7 +7,7 @@
     List<RewardModel> rewards = RewardsService.getRewards();
 %>
 <%
-    if(rewards == null) {
+    if (rewards == null) {
         rewards = new ArrayList<>();
     }
 %>
@@ -94,19 +94,19 @@
                 <!-- add cards here to automatically update all cards. This will be automatically updated -->
                 <div class="card-container">
                     <%
-                        for(RewardModel i: rewards) {
-                            %><div class="card">
-                                <div class="title">
-                                    <h5 class="card-title"><%= i.getName() %></h5>
-                                    <p class="card-subtitle">Pledge #<%= i.getMinPledge() %> or more</p>
-                                </div>
-                                <p class="card-body"><%= i.getDescription()%></p>
-                                <div class="card-functions">
-                                    <span class="number"><%= i.getCount()%></span>
-                                    <button class="card-button backproject"></button>
-                                </div>
-                            </div>
-                        <%}
+                        for (RewardModel i : rewards) {
+                    %><div class="card" data-min="<%= i.getMinPledge()%>" data-rewardID="<%= i.getRewardID()%>">
+                        <div class="title">
+                            <h5 class="card-title"><%= i.getName()%></h5>
+                            <p class="card-subtitle">Pledge $<%= i.getMinPledge()%> or more</p>
+                        </div>
+                        <p class="card-body"><%= i.getDescription()%></p>
+                        <div class="card-functions">
+                            <span class="number"><%= i.getCount()%></span>
+                            <button class="card-button backproject"></button>
+                        </div>
+                    </div>
+                    <%}
                     %>
                 </div>
                 <!-- Stop -->
@@ -118,21 +118,20 @@
                 <div class="close"></div>
                 <h1>Back this project</h1>
                 <p>Want to support us in bringing Mastercraft Bamboo Monitor Riser out in the world?</p>
-                <div class="card">
+                <div class="card" data-min="0">
                     <div class="title" id="default-pledge">
                         <div class="select"></div>
                         <h5 class="card-title">Pledge with no reward</h5>
                         <!-- <p class="card-subtitle">Hello world</p> -->
                     </div>
-                    <p class="card-body">
-                        Choose to support us without a reward if you simply believe in our project. As a backer, you will be signed up to receive product updates via email.
-                    </p>
+                    <p class="card-body">Choose to support us without a reward if you simply believe in our project. As a backer, you will be signed up to receive product updates via email.</p>
                     <div class="pledge-amount">
                         <p>Enter your pledge</p>
-                        <form action="/backproject" onsubmit="return false;" method="POST" class="backproject-form">
-                            <input type="hidden" value="submit" name="method">
-                            <input type="text" name="amount" placeholder="$0" class="money-input">
+                        <form action="BackprojectServlet" onsubmit="return validate(this);" method="POST" class="backproject-form">
+                            <input type="text" name="amount" placeholder="$0" class="money-input" data-min="1">
                             <input type="submit" value="Continue" class="submit">
+                            <input type="hidden" value="submit" name="method">
+                            <input type="hidden" value="R000" name="rewardID">
                         </form>
                     </div>
                 </div>
@@ -147,14 +146,25 @@
         <div class="template">
             <div class="pledge-amount">
                 <p>Enter your pledge</p>
-                <form action="/backproject" onsubmit="return false;" method="POST" class="backproject-form">
-                    <input type="hidden" value="submit" name="method">
-                    <input type="text" name="amount" placeholder="$0" class="money-input">
+                <form action="BackprojectServlet" onsubmit="return validate(this);" method="POST" class="backproject-form">
+                    <input type="text" name="amount" placeholder="$0" class="money-input" data-min="">
                     <input type="submit" value="Continue" class="submit">
+                    <input type="hidden" value="submit" name="method">
+                    <input type="hidden" value="" name="rewardID">
                 </form>
             </div>
         </div>
         <script src="js/script.js"></script>
+        <%
+            @SuppressWarnings("all")
+            boolean finished = Boolean.valueOf(request.getAttribute("finish") == null ? "false" : "true");
+            if (finished) {
+        %>
+        <script>
+            openFinishScreen();
+        </script>
+        <%}
+        %>
     </body>
 
 </html>

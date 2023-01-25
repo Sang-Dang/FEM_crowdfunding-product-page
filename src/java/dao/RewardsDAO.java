@@ -24,8 +24,9 @@ public class RewardsDAO {
     public static List<RewardModel> getAllRewards() throws ClassNotFoundException, SQLException {
         Connection connection = MainConnection.getConnection();
         String query = "SELECT r.rewardID, r.name, r.description, r.minpledge, ri.count\n"
-                + "FROM Rewards_List r \n"
-                + "INNER JOIN Rewards_Inventory ri ON r.rewardID = ri.rewardID;";
+                + "FROM Rewards_List r\n"
+                + "INNER JOIN Rewards_Inventory ri ON r.rewardID = ri.rewardID\n"
+                + "ORDER BY r.rewardID ASC;";
         PreparedStatement statement = connection.prepareStatement(query);
         ResultSet result = statement.executeQuery();
         List<RewardModel> returnValue = new ArrayList<>();
@@ -39,9 +40,5 @@ public class RewardsDAO {
             returnValue.add(reward);
         }
         return returnValue;
-    }
-
-    public static void main(String[] args) throws Exception {
-        getAllRewards().forEach(item -> System.out.println(item));
     }
 }
