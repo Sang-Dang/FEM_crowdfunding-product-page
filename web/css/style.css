@@ -219,22 +219,24 @@ section {
     flex-direction: row;
     width: 100%;
     margin-top: 25px;
-    gap: 1rem;
+    justify-content: space-between;
 }
 
 #title-card>.functions>button:first-child {
     outline: none;
     border: none;
-    width: 80%;
+    width: 70%;
     border-radius: 2rem;
     background-color: var(--moderate-cyan);
     color: white;
     font-weight: 600;
+    font-size: .8rem;
 }
 
 #title-card>.functions>button:last-child {
     border-radius: 50%;
     height: 100%;
+    border: none;
     padding: 0;
 }
 
@@ -466,6 +468,12 @@ button:hover {
     background-color: var(--dark-cyan) !important;
 }
 
+@media (min-width: 600px) {
+    button:hover {
+        background-color: #2f2f2f;
+    }
+}
+
 button:active {
     transform: scale(90%);
 }
@@ -482,6 +490,11 @@ button:active {
 
 #bookmark.toggle {
     gap: 1vw !important;
+}
+
+#bookmark.toggle svg {
+    width: 100%;
+    object-fit: contain;
 }
 
 #bookmark.toggle svg g circle {
