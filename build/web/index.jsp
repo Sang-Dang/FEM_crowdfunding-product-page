@@ -1,3 +1,11 @@
+<%@page import="java.util.List"%>
+<%@page import="model.RewardModel"%>
+<%@page import="service.RewardsService"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%! 
+    List<RewardModel> rewards = RewardsService.getRewards();
+    
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +16,7 @@
 
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
 
-  <title>Frontend Mentor | Crowdfunding product page</title>
+  <title>Mastercraft Bamboo Monitor Riser</title>
 
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/style.css">
@@ -78,64 +86,12 @@
         </p>
       </div>
 
-      <!-- add cards here to automatically update all cards. -->
+      <!-- add cards here to automatically update all cards. This will be automatically updated -->
       <div class="card-container">
-        <div class="card">
-          <div class="title">
-            <h5 class="card-title">Bamboo Stand</h5>
-            <p class="card-subtitle">Pledge $25 or more</p>
-          </div>
-          <p class="card-body">You get an ergonomic stand made of natural bamboo. You've helped us launch our promotional campaign, and you’ll be added to a special Backer member list.</p>
-          <div class="card-functions">
-            <span class="number">101</span>
-            <button class="card-button backproject"></button>
-          </div>
-        </div>
-        <div class="card">
-          <div class="title">
-            <h5 class="card-title">Black Edition Stand</h5>
-            <p class="card-subtitle">Pledge $75 or more</p>
-          </div>
-          <p class="card-body">You get a Black Special Edition computer stand and a personal thank you. You’ll be added to our Backermember list. Shipping is included.</p>
-          <div class="card-functions">
-            <span class="number">64</span>
-            <button class="card-button backproject"></button>
-          </div>
-        </div>
-        <div class="card">
-          <div class="title">
-            <h5 class="card-title">Mahogany Special Edition</h5>
-            <p class="card-subtitle">Pledge $200 or more</p>
-          </div>
-          <p class="card-body">You get two Special Edition Mahogany stands, a Backer T-Shirt, and a personal thank you. You’ll be added to our Backer member list. Shipping is included.</p>
-          <div class="card-functions">
-            <span class="number">0</span>
-            <button class="card-button backproject"></button>
-          </div>
-        </div>
-        <div class="card">
-          <div class="title">
-            <h5 class="card-title">Minecraft Pocket Edition Subscription</h5>
-            <p class="card-subtitle">Pledge $500 or more</p>
-          </div>
-          <p class="card-body">You will get a digital version of Minecraft Pocket Edition, with over 100 free skins and 500 MineCoins. You will receive this through a followup email.</p>
-          <div class="card-functions">
-            <span class="number">100</span>
-            <button class="card-button backproject"></button>
-          </div>
-        </div>
-        <div class="card">
-          <div class="title">
-            <h5 class="card-title">1st edition Pokemon card</h5>
-            <p class="card-subtitle">Pledge $1000 or more</p>
-          </div>
-          <p class="card-body">You get a charizard card from 2001, valuing at over $1,000,000. This is an investment of a lifetime, and anyone who forgoes it is, quite frankly, an idiot.</p>
-          <div class="card-functions">
-            <span class="number">1</span>
-            <button class="card-button backproject"></button>
-          </div>
-        </div>
+        
       </div>
+      <!-- Stop -->
+      
     </section>
   </main>
   <div id="float">
@@ -154,8 +110,9 @@
         </p>
         <div class="pledge-amount">
           <p>Enter your pledge</p>
-          <form action="#" onsubmit="return false;">
-            <input type="text" placeholder="$0" class="money-input">
+          <form action="/backproject" onsubmit="return false;" method="POST" class="backproject-form">
+            <input type="hidden" value="submit" name="method">
+            <input type="text" name="amount" placeholder="$0" class="money-input">
             <input type="submit" value="Continue" class="submit">
           </form>
         </div>
@@ -171,8 +128,9 @@
   <div class="template">
     <div class="pledge-amount">
       <p>Enter your pledge</p>
-      <form action="#" onsubmit="return false;">
-        <input type="text" placeholder="$0" class="money-input">
+      <form action="/backproject" onsubmit="return false;" method="POST" class="backproject-form">
+        <input type="hidden" value="submit" name="method">
+        <input type="text" name="amount" placeholder="$0" class="money-input">
         <input type="submit" value="Continue" class="submit">
       </form>
     </div>
