@@ -509,10 +509,12 @@ button:active {
 #float>section {
     position: absolute;
     top: 30%;
-    left: -100%;
+    left: 50%;
+    visibility: hidden;
+    opacity: 0;
     transform: translate(-50%, -50%);
     background-color: white;
-    transition: left 0.2s linear;
+    transition: all .3s ease-in-out;
     z-index: var(--top);
 }
 
@@ -534,7 +536,8 @@ button:active {
 }
 
 #float>section.active {
-    left: 50%;
+    visibility:visible;
+    opacity: 1; 
 }
 
 #project-select {

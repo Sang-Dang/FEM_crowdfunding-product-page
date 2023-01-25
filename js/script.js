@@ -155,7 +155,6 @@ floatButtons.forEach(item => {
 
 // money input
 const moneyInputs = document.querySelectorAll("input.money-input");
-console.log(moneyInputs);
 moneyInputs.forEach(item => {
     item.addEventListener('input', () => {
         if (item.value.charAt(0) != '$') {
@@ -189,3 +188,10 @@ closeFinish.addEventListener('click', () => {
     finishSection.classList.remove("active");
     toggleBlurScreen(false);
 })
+
+// update data-id
+const mainBackprojectButtons = document.querySelectorAll("body>main>#about-card>.card-container .card>.card-functions>button");
+for (let i = 0; i < mainBackprojectButtons.length; i++) {
+    mainBackprojectButtons[i].setAttribute("data-id", i+1);    
+}
+console.log(mainBackprojectButtons);
