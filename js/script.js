@@ -192,6 +192,6 @@ closeFinish.addEventListener('click', () => {
 // update data-id
 const mainBackprojectButtons = document.querySelectorAll("body>main>#about-card>.card-container .card>.card-functions>button");
 for (let i = 0; i < mainBackprojectButtons.length; i++) {
-    mainBackprojectButtons[i].setAttribute("data-id", i+1);    
+    mainBackprojectButtons[i].setAttribute("data-id", i+1);
 }
 console.log(mainBackprojectButtons);
